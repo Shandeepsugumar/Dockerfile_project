@@ -1,5 +1,11 @@
-FROM node:16
+# Example Dockerfile
+FROM node:18
+
 WORKDIR /app
-COPY app/ .
+
+COPY package*.json ./
 RUN npm install
-CMD ["node", "server.js"]
+
+COPY . .
+
+CMD ["node", "index.js"]
