@@ -7,4 +7,4 @@ RUN npm install
 
 COPY . .
 
-CMD ["node", "app/index.js"]
+CMD ["node", "online-learning-platform/index.js"]
