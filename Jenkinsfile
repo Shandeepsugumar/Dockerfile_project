@@ -21,9 +21,19 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-            }
+                sh '''
+                   # Use Minikube's Docker daemon
+                   eval $(minikube -p minikube docker-env)
+
+                   # Build the Docker image inside Minikube's Docker
+                   docker build -t my-app:v7 .
+
+                   # Load the image into Minikube (optional but safer)
+                   minikube image load my-app:v7
+                '''
+             }
         }
+
 
         stage('Update K8s YAML') {
             steps {
